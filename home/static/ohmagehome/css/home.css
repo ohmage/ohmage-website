@@ -1,0 +1,8 @@
+.maincol {
+    float: left; margin-right: 80px;
+}
+
+.infocol {
+    float: left;
+    width: 80px;
+}

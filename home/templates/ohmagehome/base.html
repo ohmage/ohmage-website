@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ohmage :: end-to-end data stream collection and analysis for your everyday life</title>
+
+        <link rel="stylesheet" href="{{ STATIC_URL }}ohmagehome/css/home.css" type="text/css" />
+        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon-blue.ico" />
+
+        <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js" type="text/javascript" language="Javascript"></script>
+        <script src="{{ STATIC_URL }}js/jquery.scrollTo-1.4.2-min.js" type="text/javascript" language="Javascript"></script>
+
+        <!-- qtip includes -->
+        <script src="{{ STATIC_URL }}qtip/jquery.qtip.min.js" type="text/javascript" language="Javascript"></script>
+        <link rel="stylesheet" href="{{ STATIC_URL }}qtip/jquery.qtip.min.css" type="text/css" />
+
+        <!-- cookies include -->
+        <script src="{{ STATIC_URL }}js/jquery.cookie.js" type="text/javascript" language="Javascript"></script>
+
+        <!-- used to transmit events throughout the codebase -->
+        <script src="{{ STATIC_URL }}js/pubsub.js" type="text/javascript" language="Javascript"></script>
+
+        <!-- attach your page-specific code here -->
+        <script type="text/javascript" language="Javascript">
+            {% block script %}{% endblock %}
+        </script>
+
+        <!-- executed after the custom scripts to let them get the events it raises -->
+        <script src="{{ STATIC_URL }}demo/js/demo.js" type="text/javascript" language="Javascript"></script>
+
+        <style>
+            {% block style %}{% endblock %}
+        </style>
+    </head>
+
+    <body>
+        <div id="banner">
+            <div id="badge"></div>
+
+            <div id="corner_left"></div>
+            <div id="corner_right"></div>
+        </div>
+
+        <div id="trunk">
+            <div class="maincol">
+            {% block content %}{% endblock %}
+            </div>
+
+            <div class="infocol">
+            twitter feed goes here
+            </div>
+
+            <div id="footer">
+            copyright &copy; 2012 MobilizeLabs - all rights reserved
+            </div>
+        </div>
+    </body>
+</html>

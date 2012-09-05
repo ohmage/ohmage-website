@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'ohmageWebsite.views.home', name='home'),
     # url(r'^ohmageWebsite/', include('ohmageWebsite.foo.urls')),
 
-    (r'^', include('ohmageWebsite.home.urls', namespace='home', app_name='home')),
+    (r'^', include('home.urls', namespace='home', app_name='home')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

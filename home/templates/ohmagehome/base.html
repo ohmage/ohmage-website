@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 
+{% load twitter_tag cache %}
+
 <html>
     <head>
-        <title>ohmage :: end-to-end data stream collection and analysis for your everyday life</title>
+        <title>ohmage</title>
 
         <link rel="stylesheet" href="{{ STATIC_URL }}ohmagehome/css/home.css" type="text/css" />
-        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon-blue.ico" />
+        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon-white.ico" />
 
         <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js" type="text/javascript" language="Javascript"></script>
         <script src="{{ STATIC_URL }}js/jquery.scrollTo-1.4.2-min.js" type="text/javascript" language="Javascript"></script>
-
-        <!-- qtip includes -->
-        <script src="{{ STATIC_URL }}qtip/jquery.qtip.min.js" type="text/javascript" language="Javascript"></script>
-        <link rel="stylesheet" href="{{ STATIC_URL }}qtip/jquery.qtip.min.css" type="text/css" />
-
-        <!-- cookies include -->
-        <script src="{{ STATIC_URL }}js/jquery.cookie.js" type="text/javascript" language="Javascript"></script>
 
         <!-- used to transmit events throughout the codebase -->
         <script src="{{ STATIC_URL }}js/pubsub.js" type="text/javascript" language="Javascript"></script>
@@ -34,23 +29,34 @@
     </head>
 
     <body>
-        <div id="banner">
-            <div id="badge"></div>
-
-            <div id="corner_left"></div>
-            <div id="corner_right"></div>
-        </div>
-
         <div id="trunk">
-            <div class="maincol">
-            {% block content %}{% endblock %}
+            <div id="header">
+                <img id="header_img" src="{{ STATIC_URL }}ohmagehome/images/login-logo.png" />
             </div>
 
-            <div class="infocol">
-            twitter feed goes here
+            <div id="navbar">
+                <ul id="navlist">
+                    <li><a href="#home">Home</a></li><li><a href="#projects">Projects</a></li><li><a href="#contributors">Contributors</a></li>
+                </ul>
             </div>
 
-            <div id="footer">
+            <div id="maincol" class="content_pane">
+                {% block content %}{% endblock %}
+            </div>
+
+            <div id="infocol" class="content_pane">
+{#                {% cache 3600 openmhealth_tweets %}#}
+                    {% get_tweets for "open_mhealth" as tweets limit 10 %}
+                    <div id="twitter_header"><a href="https://twitter.com/open_mhealth">@open_mhealth</a></div>
+                    <ul id="twitter_list">
+                        {% for tweet in tweets %}
+                            <li>{{ tweet.html|safe }}</li>
+                        {% endfor %}
+                    </ul>
+{#                {% endcache %}#}
+            </div>
+
+            <div id="footer" class="content_pane">
             copyright &copy; 2012 MobilizeLabs - all rights reserved
             </div>
         </div>

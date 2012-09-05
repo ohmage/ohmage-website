@@ -1,8 +1,125 @@
-.maincol {
-    float: left; margin-right: 80px;
+body {
+    font-family: Tahoma, sans-serif; margin: 0; padding: 0;
+    background: url('/static/ohmagehome/images/diagonal_stripes.png') #ccc;
 }
 
-.infocol {
+a { text-decoration: none; color: #5e89bc; }
+
+#trunk {
+    width: 1000px;
+    margin: 0 auto;
+    background: white;
+
+    padding: 20px;
+    border-left: solid 1px #ccc; border-right: solid 1px #ccc;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
+}
+
+#header {
+    clear: both; background: url('/static/ohmagehome/images/login-header-bg.png'); margin-bottom: 10px;
+    padding: 0; height: 113px; position: relative; border: solid 1px #e4e4e4; border-bottom: none;
+    z-index: 10;
+}
+
+#header_img {
+    position: absolute; left: 8px; top: 15px;
+}
+
+.content_pane {
+    padding: 10px;
+}
+
+#maincol {
+    width: 600px;
     float: left;
-    width: 80px;
+}
+
+#infocol {
+    float: right;
+    width: 300px;
+    display: inline;
+    position: relative; left: -10px;
+    border-left: solid 1px #e4e4e4;
+    padding-left: 30px;
+}
+
+#footer {
+    clear: both; padding-top: 10px;
+    color: #333; font-size: 12px;
+    border-top: solid 1px #e4e4e4;
+}
+
+.clear { clear: both; background: none; }
+
+p.emphasis {
+    font-weight: bold;
+}
+
+/* content area style */
+#maincol .subheader {
+    font-size: 22px; font-weight: bold;
+}
+
+#maincol p {
+    line-height: 150%; color: #333;
+}
+
+/*
+====================================================
+=== tweets style
+====================================================
+*/
+#twitter_header {
+    font-size: 22px; font-weight: bold;
+}
+
+#twitter_list {
+    margin: 0;
+    padding: 0;
+}
+
+#twitter_list li {
+    list-style-type: none;
+    margin: 5px 0 15px;
+    padding: 0;
+    font-size: 15px;
+}
+
+/*
+====================================================
+=== navigation menu style
+====================================================
+*/
+#navbar {
+    background: #4e4e4e; clear: both;
+    margin-bottom: 20px;
+
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+}
+
+ul#navlist
+{
+    margin: 0;
+    padding: 0;
+}
+
+#navlist li
+{
+    display: inline;
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+
+#navlist li a {
+    display: inline-block; width: 200px; padding: 8px;
+    text-align: center; text-decoration: none; font-weight: bold; color: #ffffff;
+    margin: 0px; background: #5d5d5d;
+    border-right: solid 1px gray;
+
+    color: white;
+    text-shadow: 0px -1px 0px #374683;
+}
+
+#navlist li a:hover {
+    background: #737373;
 }

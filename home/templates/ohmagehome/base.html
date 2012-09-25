@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 
 {% load twitter_tag cache %}
+{% load current from navigation %}
 
 <html>
     <head>
         <title>ohmage</title>
 
         <link rel="stylesheet" href="{{ STATIC_URL }}ohmagehome/css/home.css" type="text/css" />
-        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon-white.ico" />
+        <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon-gray.ico" />
 
         <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js" type="text/javascript" language="Javascript"></script>
         <script src="{{ STATIC_URL }}js/jquery.scrollTo-1.4.2-min.js" type="text/javascript" language="Javascript"></script>
@@ -19,9 +20,6 @@
         <script type="text/javascript" language="Javascript">
             {% block script %}{% endblock %}
         </script>
-
-        <!-- executed after the custom scripts to let them get the events it raises -->
-        <script src="{{ STATIC_URL }}demo/js/demo.js" type="text/javascript" language="Javascript"></script>
 
         <style>
             {% block style %}{% endblock %}
@@ -36,28 +34,52 @@
 
             <div id="navbar">
                 <ul id="navlist">
-                    <li><a href="#home">Home</a></li><li><a href="#projects">Projects</a></li><li><a href="#contributors">Contributors</a></li>
+                    <li>
+                        {% url home:home as home_url %}
+                        <a href="{{ home_url }}" class="{% if request.path == home_url %}active{% endif %}">Home</a>
+                    </li>
+                    <li>
+                        {% url home:usage as usage_url %}
+                        <a href="{{ usage_url }}" class="{% if request.path == usage_url %}active{% endif %}">Usage</a>
+                    </li>
+                    <li>
+                        {% url home:projects as projects_url %}
+                        <a href="{{ projects_url }}" class="{% if request.path == projects_url %}active{% endif %}">Projects</a>
+                    </li>
+                    <li>
+                        {% url home:papers as papers_url %}
+                        <a href="{{ papers_url }}" class="{% if request.path == papers_url %}active{% endif %}">Papers</a>
+                    </li>
+                    <li>
+                        {% url home:contributors as contributors_url %}
+                        <a href="{{ contributors_url }}" class="{% if request.path == contributors_url %}active{% endif %}">Contributors</a>
+                    </li>
                 </ul>
             </div>
 
+            {% block cols %}
             <div id="maincol" class="content_pane">
                 {% block content %}{% endblock %}
             </div>
 
             <div id="infocol" class="content_pane">
-{#                {% cache 3600 openmhealth_tweets %}#}
-                    {% get_tweets for "open_mhealth" as tweets limit 10 %}
-                    <div id="twitter_header"><a href="https://twitter.com/open_mhealth">@open_mhealth</a></div>
-                    <ul id="twitter_list">
-                        {% for tweet in tweets %}
-                            <li>{{ tweet.html|safe }}</li>
-                        {% endfor %}
-                    </ul>
-{#                {% endcache %}#}
+            {% block info %}
+            {% cache 3600 openmhealth_twitter %}
+                <div id="twitter_header"><a href="https://twitter.com/openmhealth">@openmhealth</a></div>
+
+                {% get_tweets for 'openmhealth' as tweets limit 10 %}
+                <ul id="twitter_list">
+                    {% for tweet in tweets %}
+                        <li>{{ tweet.html|safe }}</li>
+                    {% endfor %}
+                </ul>
+            {% endcache %}
+            {% endblock %}
             </div>
+            {% endblock %}
 
             <div id="footer" class="content_pane">
-            copyright &copy; 2012 MobilizeLabs - all rights reserved
+            Copyright &copy; 2012 MobilizeLabs - all rights reserved
             </div>
         </div>
     </body>

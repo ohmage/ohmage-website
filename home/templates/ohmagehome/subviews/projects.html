@@ -1,0 +1,119 @@
+{% extends "ohmagehome/base_onecol.html" %}
+
+{% block style %}
+.project {
+    margin-bottom: 1em;
+}
+.project p, .project h3 { margin: 0px; margin-bottom: 8px; }
+.project .collabs {  margin-bottom: 6px; }
+.project .desc {  margin-bottom: 6px; }
+
+#start_add_project {
+    position: relative;
+}
+
+#add_project_dialog {
+    color: black; cursor: default;
+    background: white; padding: 20px;
+    border: solid 1px #ccc; width: 600px;
+    margin-top: 1em;
+
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.25);
+
+    position: absolute; z-index: 500;
+}
+
+#add_project_dialog .dialog_header {
+    padding: 10px 20px;
+    margin: -20px; margin-bottom: 20px; background: #eee; position: relative;
+    overflow: hidden;
+}
+
+#add_project_dialog .dialog_header .close_dialog {
+    position: absolute; width: 50px; top: 0px; bottom: 0px; right: 0px;
+    text-align: center; padding-top: 12px; color: black;
+    background: #ccc; font-weight: bold;
+}
+#add_project_dialog .dialog_header .close_dialog:hover { background: #ddd; color: #c55; }
+#add_project_dialog .dialog_header h3 { margin: 0; float: left; }
+
+#add_project_dialog label { display: block; font-weight: normal; }
+#add_project_dialog table th { text-align: right; vertical-align: top; padding: 10px; }
+#add_project_dialog .widebox { width: 100%; }
+#add_project_dialog textarea { resize: none; }
+#add_project_dialog .note { font-size: 12px; color: #555; }
+{% endblock %}
+
+{% block script %}
+$(document).ready(function() {
+    $("#add_project_dialog").hide();
+
+    $("#start_add_project").click(function() {
+        var $dialog = $("#add_project_dialog");
+
+        $dialog
+            .css({
+                marginLeft: -$dialog.outerWidth()/2,
+                marginTop: -$dialog.outerHeight()/2,
+                top: "50%",
+                left: "50%"
+            })
+            .fadeIn(300);
+    });
+
+    $("#add_project_dialog .close_dialog").click(function() {
+        $("#add_project_dialog").fadeOut(300);
+    });
+});
+{% endblock %}
+
+{% block content %}
+    <div class="subheader">what projects have involved ohmage?</div>
+
+    <p>Below is a list of projects that utilize <strong>ohmage</strong>.</p>
+
+    {% regroup projects by status as status_list %}
+
+    {% for status in status_list %}
+        <h3>{{ status.grouper }}</h3>
+        <ul>
+        {% for project in status.list %}
+            <li class="project">
+                <h3 style="display: inline;">{{ project.name }}</h3>
+                <span class="collabs">({{ project.collaborators }})</span>
+                <p class="desc">{{ project.desc }}</p>
+                {% if project.url %}<p class="link"><a href="{{ project.url }}">{{ project.url }}</a></p>{% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <a id="start_add_project" href="javascript:void(0)">add a new project...</a>
+
+    <div id="add_project_dialog">
+        <div class="dialog_header">
+            <h3>Add a New Project</h3>
+            <a class="close_dialog" href="javascript:void(0)">X</a>
+        </div>
+
+        <form action="{% url home:projects %}" method="post">
+            {% csrf_token %}
+            <table>
+                {{ add_project_form.as_table }}
+                <tr>
+                    <th></th>
+                    <td><input type="submit" value="Add Project" /></td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td>
+                        <p class="note">
+                            <strong>(note:</strong> submissions must be approved by an administrator before they appear above)
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock %}

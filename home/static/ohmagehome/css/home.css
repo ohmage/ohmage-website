@@ -1,3 +1,5 @@
+html { overflow-y: scroll; }
+
 body {
     font-family: Tahoma, sans-serif; margin: 0; padding: 0;
     background: url('/static/ohmagehome/images/diagonal_stripes.png') #ccc;
@@ -22,7 +24,8 @@ a { text-decoration: none; color: #5e89bc; }
 }
 
 #header_img {
-    position: absolute; left: 8px; top: 15px;
+    position: absolute; left: 50%; top: 50%;
+    margin-left: -110px; margin-top: -39.5px;
 }
 
 .content_pane {
@@ -32,6 +35,11 @@ a { text-decoration: none; color: #5e89bc; }
 #maincol {
     width: 600px;
     float: left;
+}
+
+#maincol.fullwidth {
+    width: auto;
+    float: none;
 }
 
 #infocol {
@@ -81,8 +89,13 @@ p.emphasis {
 #twitter_list li {
     list-style-type: none;
     margin: 5px 0 15px;
-    padding: 0;
-    font-size: 15px;
+    padding: 0 0 15px 0;
+    font-size: 13px;
+    border-bottom: solid 1px #ccc;
+}
+
+#twitter_list li:last-child {
+    border-bottom: none;
 }
 
 /*
@@ -107,19 +120,38 @@ ul#navlist
 {
     display: inline;
     list-style-type: none;
-    margin: 0; padding: 0;
+    padding: 0; margin: 0; margin-right: -5px;
 }
 
 #navlist li a {
-    display: inline-block; width: 200px; padding: 8px;
+    display: inline-block; width: 183px; padding: 8px;
     text-align: center; text-decoration: none; font-weight: bold; color: #ffffff;
     margin: 0px; background: #5d5d5d;
     border-right: solid 1px gray;
+    position: relative; z-index: 0;
 
     color: white;
     text-shadow: 0px -1px 0px #374683;
 }
 
 #navlist li a:hover {
+    background: #888;
+}
+
+#navlist li a.active {
     background: #737373;
+}
+
+/* draws a little arrow under the active link */
+#navlist li a.active:after {
+    content: '';
+
+    width: 0; height: 0;
+    border-left: 10px dotted transparent;
+    border-right: 10px dotted transparent;
+    border-bottom: 10px solid white;
+
+    margin-left: -10px;
+    position: absolute;
+    bottom: -5px; left: 50%; z-index: 100;
 }

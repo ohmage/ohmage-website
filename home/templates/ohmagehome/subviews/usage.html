@@ -1,10 +1,110 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "ohmagehome/base_onecol.html" %}
 
-</body>
-</html>
+{% block style %}
+.role_panel_container { margin-top: 1em; padding: 5px; border-top: solid 1px #ccc; padding-top: 20px; }
+.role_panel {
+    display: table-cell; width: 33%; padding: 5px; cursor: pointer;
+    padding-left: 120px; height: 120px;
+    background: no-repeat 5px 5px;
+}
+.role_panel h2 { font-weight: bold; font-size: 16px; margin: 0; margin-bottom: 1px; }
+
+/* section-specific icons */
+#enduser_chooser {
+    border-left: none;
+    background-image: url('/static/ohmagehome/icons/clipboard.png');
+}
+
+#developer_chooser {
+    background-image: url('/static/ohmagehome/icons/tools.png');
+}
+
+#researcher_chooser {
+    background-image: url('/static/ohmagehome/icons/microscope.png');
+}
+
+/* content panel designs */
+#content_panel_container {
+    border-top: solid 1px #ccc;
+}
+
+.content_panel {
+}
+{% endblock %}
+
+{% block script %}
+$(document).ready(function() {
+    // initially hide all the content panels
+    $(".content_panel").hide();
+    $("#content_panel_container").hide();
+
+    $(".role_panel").each(function(idx, me) {
+        $(me).click(function() {
+            var $target = $($(me).attr("data-target"));
+
+            if (!$("#content_panel_container").is(":visible"))
+                $("#content_panel_container").fadeIn();
+
+            // hide everything in the class, and then show the target
+            $(".content_panel").not($target).slideUp(300, function() {
+                $target.slideDown(300);
+            });
+        });
+    });
+});
+{% endblock %}
+
+{% block content %}
+    <div class="subheader">how can i use ohmage?</div>
+
+    <p>How do you plan to use <strong>ohmage</strong>?</p>
+
+    <div class="role_panel_container">
+        <div id="enduser_chooser" data-target="#enduser_panel" class="role_panel">
+            <h2>End-user</h2>
+            I am interested in recording and analyzing my own data.
+        </div>
+
+        <div id="researcher_chooser" data-target="#researcher_panel" class="role_panel">
+            <h2>Researcher</h2>
+            I am interested in using ohmage to gather and analyze data from other people.
+        </div>
+
+        <div id="developer_chooser" data-target="#developer_panel" class="role_panel">
+            <h2>Developer</h2>
+            I am interested in extending or interoperating with ohmage.
+        </div>
+    </div>
+
+    <div id="content_panel_container">
+        <div id="enduser_panel" class="content_panel">
+            <h2>ohmage for end-users</h2>
+
+            <p>
+            Include some text here about how ohmage can be useful for end-users to chart and analyze
+            their own data (e.q. quantified self type use cases). This is basically the same as the
+            researcher case, save n=1 and fewer privacy concerns.
+            </p>
+        </div>
+
+        <div id="developer_panel" class="content_panel">
+            <h2>ohmage for developers</h2>
+
+            <p>
+            Include some text here about how the various components that comprise ohmage
+            can be reused, how the server resources that ohmage exposes can be leveraged, and how
+            the data analysis tools that ohmage provides can be applied.
+            </p>
+        </div>
+
+        <div id="researcher_panel" class="content_panel">
+            <h2>ohmage for researchers</h2>
+
+            <p>
+            Include some text here about how ohmage can be used as an end-to-end solution for
+            collecting data from a pool of participants, storing it, and analyzing/exporting the accumulated
+            data later on.
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,11 +1,26 @@
 {% extends "ohmagehome/base.html" %}
 
+{% block style %}
+.tooltip {
+    background: #eee; border-radius: 5px; padding: 10px; overflow: hidden;
+}
+
+.tooltip img.icon {
+    float: left; margin-right: 10px; width: 48px; background: white; padding: 5px; border-radius: 5px;
+}
+{% endblock %}
+
 {% block content %}
-    <div class="subheader">What is ohmage?</div>
+    <div class="subheader">what is ohmage?</div>
+
+    <img src="/static/ohmagehome/images/ohmage-preview.png" width="175" style="border: solid 1px #ccc; float: left; margin: 20px 20px 20px 0px;" />
 
     <p><b>ohmage</b> is an open-source participatory sensing technology platform. It supports expressive campaign authoring; mobile phone-based data capture through both inquiry-based surveys and automated data capture as well as temporally/spatially triggered reminders, data visualization and real-time feedback; privacy respecting data management; and extensible data exploration. All captured data are automatically timestamped, geocoded and uploaded for analysis and visualization.</p>
 
     <p>This platform is used in pilot health studies (www.andwellness.org) and will be used as a pedagogical tool in LAUSD schools for learning data representation, collection and analysis (www.mobilizingcs.org).</p>
 
-    <p class="emphasis">For more information, visit <a href="http://www.ohmage.org">www.ohmage.org</a></p>
+    <p class="tooltip">
+    <img src="{{ STATIC_URL }}ohmagehome/icons/clipboard.png" class="icon" />
+    If you'd like to learn how to use <b>ohmage</b> for your project, take a look at the <a href="{% url home:usage %}">Usage</a> page.
+    </p>
 {% endblock %}

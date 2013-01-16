@@ -1,35 +1,88 @@
 {% extends "ohmagehome/base_onecol.html" %}
 
 {% block style %}
-.role_panel_container { margin-top: 1em; padding: 5px; border-top: solid 1px #ccc; padding-top: 20px; }
-.role_panel {
-    display: table-cell; width: 33%; padding: 5px; cursor: pointer;
-    padding-left: 120px; height: 120px;
-    background: no-repeat 5px 5px;
-}
-.role_panel h2 { font-weight: bold; font-size: 16px; margin: 0; margin-bottom: 1px; }
+<style>
+    /*
+    === standard role selector panel styles
+    */
+    .role_panel_container { margin-top: 1em; padding: 5px; padding-top: 20px; }
+    .role_panel {
+        display: table-cell; width: 33%; cursor: pointer;
+        padding: 10px;
+        position: relative; z-index: 0;
+    }
+    .role_panel .desc { display: block; padding-right: 8px; }
 
-/* section-specific icons */
-#enduser_chooser {
-    border-left: none;
-    background-image: url('/static/ohmagehome/icons/clipboard.png');
-}
+    /*
+    === iconic role selector panels
+    */
+    .rp_iconic .role_panel {
+        padding-left: 120px; height: 120px; padding-bottom: 5px; padding-top: 15px;
+        border-radius: 10px;
+        background-position: 5px 8px;
+        background-color: white;
+        background-repeat: no-repeat;
+    }
+    .rp_iconic .role_panel h2 { font-weight: bold; font-size: 18px; margin: 0; margin-bottom: 1px; }
 
-#developer_chooser {
-    background-image: url('/static/ohmagehome/icons/tools.png');
-}
+    #enduser_chooser {
+        background-image: url('/static/ohmagehome/icons/clipboard.png');
+    }
 
-#researcher_chooser {
-    background-image: url('/static/ohmagehome/icons/microscope.png');
-}
+    #developer_chooser {
+        background-image: url('/static/ohmagehome/icons/tools.png');
+    }
 
-/* content panel designs */
-#content_panel_container {
-    border-top: solid 1px #ccc;
-}
+    #researcher_chooser {
+        background-image: url('/static/ohmagehome/icons/microscope.png');
+    }
 
-.content_panel {
-}
+    /*
+    === compressed role selector panels
+    */
+
+    .role_panel_container.rp_compressed {
+        width: 100%; display: none;
+    }
+
+    /*
+    === selected role selector panels
+    */
+    .role_panel.selected {
+        background-color: #eee;
+    }
+    .role_panel.selected:after {
+        content: '';
+
+        width: 0; height: 0;
+        border-left: 15px dotted transparent;
+        border-right: 15px dotted transparent;
+        border-top: 15px solid #eee;
+
+        margin-left: -10px;
+        position: absolute;
+        bottom: -12px; left: 50%; z-index: 100;
+    }
+
+    /*
+    === content panel designs
+    */
+    #content_panel_container {
+    }
+
+    .content_panel {
+    }
+
+    .content_panel h2 {
+        margin-bottom: 0;
+    }
+
+    .content_panel h2:before {
+        content: '\203A';
+        font-weight: bold; font-size: 48px;
+        margin-right: 5px; vertical-align: -5px;
+    }
+</style>
 {% endblock %}
 
 {% block script %}
@@ -41,9 +94,21 @@ $(document).ready(function() {
     $(".role_panel").each(function(idx, me) {
         $(me).click(function() {
             var $target = $($(me).attr("data-target"));
+            var $container = $("#content_panel_container");
 
-            if (!$("#content_panel_container").is(":visible"))
-                $("#content_panel_container").fadeIn();
+            if (!$container.is(":visible"))
+                $container.fadeIn();
+
+            // set this role_panel as being selected
+            $(".role_panel").removeClass('selected').filter(me).addClass('selected');
+
+            // set the hash to the target...?
+            location.hash = $(me).attr("data-target");
+
+            // move the target to the top if it's not visible
+            // this makes it always slide down, as opposed to occasionally sliding up
+            if (!$target.is(":visible"))
+                $target.detach().prependTo("#content_panel_container");
 
             // hide everything in the class, and then show the target
             $(".content_panel").not($target).slideUp(300, function() {
@@ -52,6 +117,17 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+    // Bind the event.
+    $(window).hashchange( function(){
+        // simulate a click on the corresponding role thingy
+        $(".rp_iconic .role_panel[data-target=" + location.hash + "]").click();
+    });
+
+    // Trigger the event (useful on page load).
+    $(window).hashchange();
+});
 {% endblock %}
 
 {% block content %}
@@ -59,31 +135,51 @@ $(document).ready(function() {
 
     <p>How do you plan to use <strong>ohmage</strong>?</p>
 
-    <div class="role_panel_container">
+    <div class="role_panel_container rp_iconic">
         <div id="enduser_chooser" data-target="#enduser_panel" class="role_panel">
-            <h2>End-user</h2>
-            I am interested in recording and analyzing my own data.
-        </div>
-
-        <div id="researcher_chooser" data-target="#researcher_panel" class="role_panel">
-            <h2>Researcher</h2>
-            I am interested in using ohmage to gather and analyze data from other people.
+            <h2>For Myself</h2>
+            <span class="desc">I am interested in using ohmage to record and analyze my own data.</span>
         </div>
 
         <div id="developer_chooser" data-target="#developer_panel" class="role_panel">
-            <h2>Developer</h2>
-            I am interested in extending or interoperating with ohmage.
+            <h2>As a Developer</h2>
+            <span class="desc">I am interested in running or extending ohmage.</span>
+        </div>
+
+        <div id="researcher_chooser" data-target="#researcher_panel" class="role_panel">
+            <h2>As a Researcher</h2>
+            <span class="desc">I am interested in using ohmage to help stage a research study.</span>
+        </div>
+    </div>
+
+    <div class="role_panel_container rp_compressed">
+        <div id="enduser_chooser_small" data-target="#enduser_panel" class="role_panel">
+            For Myself
+        </div>
+
+        <div id="developer_chooser_small" data-target="#developer_panel" class="role_panel">
+            As a Developer
+        </div>
+
+        <div id="researcher_chooser_small" data-target="#researcher_panel" class="role_panel">
+            As a Researcher
         </div>
     </div>
 
     <div id="content_panel_container">
         <div id="enduser_panel" class="content_panel">
-            <h2>ohmage for end-users</h2>
+            <h2>ohmage for myself</h2>
 
             <p>
-            Include some text here about how ohmage can be useful for end-users to chart and analyze
-            their own data (e.q. quantified self type use cases). This is basically the same as the
-            researcher case, save n=1 and fewer privacy concerns.
+                <span class="provisional">
+                I want to learn more about my health behaviors (such as diet, stress, sleep, or exercise), my daily or weekly routines, and the places I visit. I want to be able to easily collect and view this information about myself. I am willing to download an application to my Android smartphone or iPhone, and answer surveys (and receive reminders set at a time that I decide on); if I want, I can collect automated traces of my activity and location that run continously in the background on my Android device, as well as incorporate data from my Fibit(&trade;) or Bodymedia(&trade;) devices. I want my data to stay private, but am willing to share this data with a specific research project.
+                </span>
+            </p>
+
+            <p class="tooltip" style="width: 75%;">
+                <img src="{{ STATIC_URL }}ohmagehome/icons/bullhorn.png" class="icon" />
+                <b>TIP:</b>
+                There's a guided tutorial available for installing and using ohmage on your Android device at the <a target="_blank" href="http://demo.ohmage.org">ohmage demo site</a>.
             </p>
         </div>
 
@@ -91,9 +187,26 @@ $(document).ready(function() {
             <h2>ohmage for developers</h2>
 
             <p>
-            Include some text here about how the various components that comprise ohmage
-            can be reused, how the server resources that ohmage exposes can be leveraged, and how
-            the data analysis tools that ohmage provides can be applied.
+                <span class="provisional">
+                I am interested in software systems developed for mobile health. I want to add new features to ohmage, borrow code from this open-source repository, or just see how a particularly useful visualization has been implemented. I am comfortable with the Android framework on the phone, the LAMP stack, Java and mySQL for the server, or XXXX for the visualizations (Josh, please fix!).
+                </span>
+            </p>
+
+            <p>
+                <b>Source Code (Github):</b>
+                <ul class="github_links">
+                    <li><a target="_blank" href="https://github.com/cens/ohmagePhone/">ohmage Android Client</a></li>
+                    <li><a target="_blank" href="https://github.com/cens/ohmageServer">ohmage Server</a></li>
+                    <li><a target="_blank" href="https://github.com/cens/ohmageFrontEnd">ohmage Web Front-End</a></li>
+                    <li><a target="_blank" href="https://github.com/cens/">CENS on GitHub</a></li>
+                </ul>
+            </p>
+
+            <p>
+                <b>How-Tos and Other Documentation:</b>
+                <ul class="howto_links">
+                    <li><a target="_blank" href="https://github.com/jeroenooms/ohmage-ubuntu/raw/master/manual/document.pdf">Ubuntu Installation Manual (PDF)</a></li>
+                </ul>
             </p>
         </div>
 
@@ -101,9 +214,34 @@ $(document).ready(function() {
             <h2>ohmage for researchers</h2>
 
             <p>
-            Include some text here about how ohmage can be used as an end-to-end solution for
-            collecting data from a pool of participants, storing it, and analyzing/exporting the accumulated
-            data later on.
+                <span class="provisional">
+                I am interested in incorporating a smartphone in my clinical study or intervention.
+                </span>
+            </p>
+
+            <p class="tooltip" style="width: 75%;">
+                <img src="{{ STATIC_URL }}ohmagehome/icons/small/clipboard_plain.png" class="icon" >
+                <b>PAPERS:</b>
+                If you would like to learn more about how smartphones have been used with ohmage in research studies, please consult our <a href="/papers">list of papers and references</a>.
+            </p>
+
+            <p class="tooltip" style="width: 75%;">
+                <img src="{{ STATIC_URL }}ohmagehome/icons/small/envelope.png" class="icon" >
+                <b>CONTACT:</b>
+                If you have an idea about how to use ohmage and smartphones together, feel free to <a href="mailto:ohmage@ohmage.org">get in contact with us</a>.
+            </p>
+
+            <p class="tooltip" style="width: 75%;">
+                <img src="{{ STATIC_URL }}ohmagehome/icons/small/script.png" class="icon" >
+                <b>TUTORIAL:</b>
+                If you'd like a guided tutorial on how to author a campaign and view data collected by research subjects, try out the <a target="_blank" href="http://demo.ohmage.org/flows/authoring/">ohmage authoring tutorial</a>
+            </p>
+
+            <p class="tooltip" style="width: 75%;">
+                <img src="{{ STATIC_URL }}ohmagehome/icons/small/user.png" class="icon" />
+                <b>USERS:</b>
+                If you'd like to see how ohmage works from a user's perspective, take a look at
+                the guided tour on the <a target="_blank" href="http://demo.ohmage.org/flows/default/">ohmage "first steps" tutorial</a>.
             </p>
         </div>
     </div>

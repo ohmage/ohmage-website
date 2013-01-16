@@ -1,8 +1,52 @@
 {% extends "ohmagehome/base_onecol.html" %}
 
+{% block style %}
+.personnel_list {
+    margin-left: 20px;
+    margin-bottom: 1em;
+}
+
+.personnel_list h1 { margin-left: -20px; font-size: 16px; }
+.personnel_list h2 { margin-left: -10px; font-size: 15px; }
+
+#maincol {
+    background: white url('{{ STATIC_URL }}ohmagehome/images/microscope_silkscreen.png') no-repeat bottom right;
+}
+{% endblock %}
+
 {% block content %}
     <div class="subheader">who has contributed to ohmage?</div>
 
-    <p>eventually this will contain some information on what individuals/groups have contributed to the project at large.
-    (specific usages of ohmage will be on the "projects" page.)</p>
+    <!--
+    <p>
+    ohmage leverages funding from Google for graduate and undergraduate student researchers, with NSF and UCLA funds for technical staff, and with NSF and NIH funding for application pilots. The current project includes: 5 technical staff, 6 students, and 4 faculty (from CS, statistics, health sciences, and education) and has been used in various contexts by hundreds of end-users.
+    </p>
+    -->
+
+    <p>
+        <div class="personnel_list">
+            <h1>Technology Co-PIs:</h1>
+             Deborah Estrin, Mark Hansen, Nithya Ramanathan, Joshua Selsky, Hongsuda Tangmunarunkit
+        </div>
+
+        <div class="personnel_list">
+            <h1>Application/Domain Expert Faculty/PIs (Health Science):</h1>
+             Robert Bilder, Jacqueline Casillas, Scott Comulada, Patricia Ganz, Mary Jane Rotheram-Borus, Ida Sim (UCSF), Fred Sabb, Dallas Swendeman, Michael Swiernik
+        </div>
+        <div class="personnel_list">
+            <h1>Students, Staff:</h1>
+            <h2>Staff:</h2>
+            Betta Dawson, John Jenkins, Cameron Ketcham
+            <h2>Graduate Students:</h2>
+            Faisal Alquaddoomi, Hossein Falaki, Brent Flagstaff, Andy Hsieh, Jinha Khang, Donnie Kim, Min Mun, Katie Shilton
+        </div>
+        <div class="personnel_list">
+            <h1>Sponsors and Partners/Collaborators:</h1>
+                <div><h2>Cornell:</h2> Cornell Tech, WMC CHiP</div>
+                <div><h2>UCLA:</h2> CENS, GCFC, CHIPTS, Health Sciences, JCCC</div>
+                <div><h2>Federal Funding:</h2> NSF STC and CISE, NIH</div>
+                <div><h2>Corporate Funding:</h2> Google, Intel iSTC; MSR, Nokia, T-Mobile</div>
+                <div><h2>Foundations/NGOs:</h2> RWJF, CHCF, CRA</div>
+        </div>
+    </p>
 {% endblock %}

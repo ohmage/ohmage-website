@@ -1,12 +1,11 @@
 html { overflow-y: scroll; }
 
 body {
-    font-family: 'Open Sans', sans-serif; margin: 0; padding: 0;
+    font-family: Tahoma, sans-serif; margin: 0; padding: 0;
     background: url('/static/ohmagehome/images/diagonal_stripes.png') #ccc;
 }
 
 a { text-decoration: none; color: #5e89bc; }
-a:hover { text-decoration: underline; }
 
 #trunk {
     width: 960px;
@@ -67,7 +66,6 @@ p.emphasis {
 /* content area style */
 #maincol .subheader {
     font-size: 22px; font-weight: bold;
-    font-family: 'Open Sans', sans-serif;
 }
 
 #maincol p {
@@ -79,6 +77,7 @@ p.emphasis {
 === tweets style
 ====================================================
 */
+
 #twitter_header {
     font-size: 22px; font-weight: bold;
 }
@@ -106,35 +105,36 @@ p.emphasis {
 ====================================================
 */
 #navbar {
-    background: #4e4e4e; clear: both;
+    clear: both;
     margin-bottom: 20px;
-
-    box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
 }
 
-ul#navlist
-{
+ul#navlist {
     margin: 0;
     padding: 0;
 }
 
-#navlist li
-{
-    font-family: Tahoma, sans-serif;
+#navlist li {
     display: inline;
     list-style-type: none;
-    padding: 0; margin: 0; margin-right: -5px;
+    padding: 0; margin: 0;
+}
+
+#navlist li:last-child {
+    margin-right: 15px; background: red;
 }
 
 #navlist li a {
-    display: inline-block; width: 175px; padding: 8px;
-    text-align: center; text-decoration: none; font-weight: bold;
-    margin: 0; background: #5d5d5d;
+    display: inline-block; width: 170px; padding: 8px;
+    text-align: center; text-decoration: none; font-weight: bold; color: #ffffff;
+    margin: 0px; background: #5d5d5d;
     border-right: solid 1px gray;
     position: relative; z-index: 0;
 
     color: white;
     text-shadow: 0px -1px 0px #374683;
+
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
 }
 
 #navlist li a:hover {
@@ -152,70 +152,9 @@ ul#navlist
     width: 0; height: 0;
     border-left: 10px dotted transparent;
     border-right: 10px dotted transparent;
-    border-bottom: 10px solid white;
+    border-top: 10px solid #737373;
 
     margin-left: -10px;
     position: absolute;
-    bottom: -5px; left: 50%; z-index: 100;
-}
-
-/*
-====================================================
-=== table styles
-====================================================
-*/
-
-.horiz { width: 100%; }
-.horiz td { padding: 5px; }
-.horiz .header_row th {
-    text-align: left; padding: 5px; border-bottom: solid 1px #777; font-variant: small-caps; }
-
-/*
-====================================================
-=== page-level widgets
-====================================================
-*/
-
-.applist_iconstub {
-    padding-right: 3px; vertical-align: middle;
-}
-
-.store_link {
-    display: inline-block; padding: 5px; border-radius: 5px; color: white; font-weight: bold;
-    font-size: 12px;
-    padding-left: 25px; background: black url('/static/ohmagehome/images/play_logo_icon.png') no-repeat 5px center;
-}
-
-.store_link.play {
-    background: black url('/static/ohmagehome/images/play_logo_icon.png') no-repeat 5px center;
-}
-
-.store_link.itunes {
-    background: black url('/static/ohmagehome/images/ios_logo_tiny.png') no-repeat 7px center;
-}
-
-img#home_preview {
-    border: solid 1px #ccc; float: left; margin: 20px 20px 20px 0px;
-}
-
-/*
-.tooltip {
-    padding: 5px; overflow: hidden;
-    background: #eee; border-radius: 5px;
-}
-
-.tooltip img.icon {
-    float: left; margin-right: 15px; width: 48px;
-    border-radius: 5px; padding: 5px; background: white;
-}
-*/
-
-.tooltip {
-    padding: 5px; overflow: hidden;
-}
-
-.tooltip img.icon {
-    float: left; margin-right: 15px; width: 48px;
-    padding-right: 15px;
-    border-right: solid 1px #777;
+    bottom: -7px; left: 50%; z-index: 100;
 }

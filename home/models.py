@@ -9,7 +9,7 @@ PROJECT_STATUS_CHOICES = (
 class Project(models.Model):
     name = models.CharField(max_length=600, unique=True)
     collaborators = models.CharField(max_length=800)
-    desc = models.TextField(verbose_name="Description")
+    desc = models.TextField(blank=True, verbose_name="Description")
     url = models.URLField(blank=True, verbose_name="Project URL")
 
     add_date = models.DateTimeField(auto_now_add=True, blank=True)
@@ -31,10 +31,11 @@ class ProjectForm(ModelForm):
         }
 
 class Paper(models.Model):
-    name = models.CharField(max_length=600, unique=True)
+    name = models.CharField(max_length=600)
     collaborators = models.CharField(max_length=800)
-    desc = models.TextField(verbose_name="Description")
-    url = models.URLField(blank=True, verbose_name="Project URL")
+    published_in = models.CharField(max_length=400,blank=True, verbose_name="Published In")
+    desc = models.TextField(verbose_name="Description", blank=True)
+    url = models.URLField(blank=True, verbose_name="Paper URL")
 
     add_date = models.DateTimeField(auto_now_add=True, blank=True)
     approved = models.BooleanField(default=False,blank=True)
@@ -49,6 +50,7 @@ class PaperForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={'class': 'widebox'}),
             'collaborators': TextInput(attrs={'class': 'widebox'}),
+            'published_in': TextInput(attrs={'class': 'widebox'}),
             'url': TextInput(attrs={'class': 'widebox'}),
             'desc': Textarea(attrs={'rows': 5, 'class': 'widebox'}),
-            }
+        }

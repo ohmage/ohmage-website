@@ -1,26 +1,70 @@
 {% extends "ohmagehome/base.html" %}
 
-{% block style %}
-.tooltip {
-    background: #eee; border-radius: 5px; padding: 10px; overflow: hidden;
-}
-
-.tooltip img.icon {
-    float: left; margin-right: 10px; width: 48px; background: white; padding: 5px; border-radius: 5px;
-}
-{% endblock %}
-
 {% block content %}
     <div class="subheader">what is ohmage?</div>
 
-    <img src="/static/ohmagehome/images/ohmage-preview.png" width="175" style="border: solid 1px #ccc; float: left; margin: 20px 20px 20px 0px;" />
+    <img id="home_preview" src="/static/ohmagehome/images/ohmage-preview.png" width="175" />
 
     <p><b>ohmage</b> is an open-source participatory sensing technology platform. It supports expressive campaign authoring; mobile phone-based data capture through both inquiry-based surveys and automated data capture as well as temporally/spatially triggered reminders, data visualization and real-time feedback; privacy respecting data management; and extensible data exploration. All captured data are automatically timestamped, geocoded and uploaded for analysis and visualization.</p>
 
-    <p>This platform is used in pilot health studies (www.andwellness.org) and will be used as a pedagogical tool in LAUSD schools for learning data representation, collection and analysis (www.mobilizingcs.org).</p>
+    <!--
+    <p>This platform is used in pilot health studies (<a href="http://www.andwellness.org">www.andwellness.org</a>) and will be used as a pedagogical tool in LAUSD schools for learning data representation, collection and analysis (<a href="http://www.mobilizingcs.org">www.mobilizingcs.org</a>).</p>
+    -->
+
+    <p style="clear: both;">
+        The <b>ohmage</b> app is currently available for Android (2.2+) and iOS devices. While the original ohmage app was developed for the Android platform, the ohmage team has worked closely with <a target="_blank" href="http://mwf.ucla.edu/">UCLA's Mobile Web Framework</a> group to create a version compatible with a broad variety of other devices, including iOS devices. All versions are listed for download below.
+    </p>
+
+    <table class="horiz" cellspacing="0" cellpadding="0">
+        <tr class="header_row">
+            <th>App Name</th>
+            <th>Platform</th>
+            <th>Download</th>
+        </tr>
+
+        <tr>
+            <td>
+                <img  class="applist_iconstub" src="{{ STATIC_URL }}ohmagehome/images/app_icons/ohmage.png" />
+                <b>ohmage</b> client
+            </td>
+            <td>Android 2.2+</td>
+            <td>
+            <a class="store_link play" target="_blank" href="https://play.google.com/store/apps/details?id=org.ohmage">
+                Play Store
+            </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img class="applist_iconstub" src="{{ STATIC_URL }}ohmagehome/images/app_icons/ohmage_mwf.png" />
+                <b>ohmage MWF</b> Android client
+            </td>
+            <td>Android 2.2+</td>
+            <td>
+                <a class="store_link play" target="_blank" href="https://play.google.com/store/apps/details?id=org.ohmage.mwoc">
+                    Play Store
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img class="applist_iconstub" src="{{ STATIC_URL }}ohmagehome/images/app_icons/ohmage_mwf_iOS.png" />
+                <b>ohmage MWF</b> iOS client
+            </td>
+            <td>iPad/iPhone</td>
+            <td>
+                <a class="store_link itunes" href="https://itunes.apple.com/us/app/ohmage-mwf/id578211681?mt=8&uo=4" target="itunes_store">
+                    App Store
+                </a>
+            </td>
+        </tr>
+    </table>
+
 
     <p class="tooltip">
-    <img src="{{ STATIC_URL }}ohmagehome/icons/clipboard.png" class="icon" />
-    If you'd like to learn how to use <b>ohmage</b> for your project, take a look at the <a href="{% url home:usage %}">Usage</a> page.
+        <img src="{{ STATIC_URL }}ohmagehome/icons/bullhorn.png" class="icon" />
+        <b>TIP:</b> If you'd like to learn how to use ohmage for your project, take a look at the <a href="{% url home:usage %}">Usage</a> page.
     </p>
 {% endblock %}

@@ -2,10 +2,11 @@
 
 {% block style %}
 .project {
+    font-size: 14px;
     margin-bottom: 1em;
 }
 .project p, .project h3 { margin: 0px; margin-bottom: 8px; }
-.project .collabs {  margin-bottom: 6px; }
+.project .collabs {  margin-bottom: 6px; font-style: italic; }
 .project .desc {  margin-bottom: 6px; }
 
 #start_add_project {
@@ -80,15 +81,15 @@ $(document).ready(function() {
         {% for project in status.list %}
             <li class="project">
                 <h3 style="display: inline;">{{ project.name }}</h3>
-                <span class="collabs">({{ project.collaborators }})</span>
-                <p class="desc">{{ project.desc }}</p>
+                <p class="collabs">{{ project.collaborators }}</p>
+                {% if project.desc %}<p class="desc">{{ project.desc }}</p>{% endif %}
                 {% if project.url %}<p class="link"><a href="{{ project.url }}">{{ project.url }}</a></p>{% endif %}
             </li>
         {% endfor %}
         </ul>
     {% endfor %}
 
-    <a id="start_add_project" href="javascript:void(0)">add a new project...</a>
+    <a id="start_add_project" href="javascript:void(0)">submit a new project...</a>
 
     <div id="add_project_dialog">
         <div class="dialog_header">

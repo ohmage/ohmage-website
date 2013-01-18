@@ -31,10 +31,11 @@ a:hover { text-decoration: underline; }
 
 .content_pane {
     padding: 10px;
+    font-size: 16px;
 }
 
 #maincol {
-    width: 580px;
+    width: 600px;
     float: left;
 }
 
@@ -45,7 +46,7 @@ a:hover { text-decoration: underline; }
 
 #infocol {
     float: right;
-    width: 300px;
+    width: 260px;
     display: inline;
     position: relative; left: -10px;
     border-left: solid 1px #e4e4e4;

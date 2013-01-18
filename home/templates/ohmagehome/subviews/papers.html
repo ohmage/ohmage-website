@@ -1,5 +1,4 @@
 {% extends "ohmagehome/base_onecol.html" %}
-{% load ajax_form_utils %}
 
 {% block style %}
     .paper {
@@ -22,7 +21,7 @@
 
         box-shadow: 3px 3px 15px rgba(0,0,0,0.25);
 
-        position: absolute; z-index: 500;
+        position: fixed; z-index: 500;
     }
 
     #add_paper_dialog .dialog_header {
@@ -49,8 +48,6 @@
 {% block script %}
     $(document).ready(function() {
         $("#add_paper_dialog").hide();
-
-        // $('form').validation({% render_ajax_fields add_paper_form %});
 
         $("#start_add_paper").click(function() {
             var $dialog = $("#add_paper_dialog");

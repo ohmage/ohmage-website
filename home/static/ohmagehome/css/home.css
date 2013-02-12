@@ -9,7 +9,8 @@ a { text-decoration: none; color: #5e89bc; }
 a:hover { text-decoration: underline; }
 
 #trunk {
-    width: 960px;
+    max-width: 960px;
+    min-width: 620px;
     margin: 0 auto;
     background: white;
 
@@ -35,7 +36,7 @@ a:hover { text-decoration: underline; }
 }
 
 #maincol {
-    width: 600px;
+    width: 620px;
     float: left;
 }
 
@@ -51,6 +52,27 @@ a:hover { text-decoration: underline; }
     position: relative; left: -10px;
     border-left: solid 1px #e4e4e4;
     padding-left: 30px;
+}
+
+/* this is a forward reference specific to home, but i'll include it here anyway */
+#software_table_desc {
+    clear: both;
+}
+
+/* if the window is too narrow, hide the #infocol */
+@media all and (max-width: 983px) {
+    #infocol {
+        display: none;
+    }
+
+    #maincol {
+        width: auto;
+        float: none;
+    }
+    
+    #software_table_desc {
+        clear: inherit;
+    }
 }
 
 #footer {
@@ -87,6 +109,7 @@ p.emphasis {
 #twitter_list {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 #twitter_list li {
@@ -117,23 +140,26 @@ ul#navlist
 {
     margin: 0;
     padding: 0;
+
+    display: table;
+    table-layout: fixed;
+    width: 100%;
 }
 
 #navlist li
 {
-    font-family: Tahoma, sans-serif;
-    display: inline;
-    list-style-type: none;
-    padding: 0; margin: 0; margin-right: -5px;
+    display: table-cell;
+    padding: 0; margin: 0;
 }
 
 #navlist li a {
-    display: inline-block; width: 175px; padding: 8px;
-    text-align: center; text-decoration: none; font-weight: bold;
-    margin: 0; background: #5d5d5d;
-    border-right: solid 1px gray;
+    display: block; padding: 8px;
+    margin: 0;
     position: relative; z-index: 0;
 
+    text-align: center; text-decoration: none; font-weight: bold;
+    background: #5d5d5d;
+    font-family: Tahoma, sans-serif;
     color: white;
     text-shadow: 0px -1px 0px #374683;
 }
@@ -196,7 +222,7 @@ ul#navlist
 }
 
 img#home_preview {
-    border: solid 1px #ccc; float: left; margin: 20px 20px 20px 0px;
+    border: solid 1px #ccc; float: left; margin: 20px 20px 10px 0px;
 }
 
 /*
@@ -212,7 +238,7 @@ img#home_preview {
 */
 
 .tooltip {
-    padding: 5px; overflow: hidden;
+    padding: 5px; overflow: hidden; text-indent: 0;
 }
 
 .tooltip img.icon {
